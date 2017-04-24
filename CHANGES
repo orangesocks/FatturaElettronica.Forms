@@ -1,10 +1,57 @@
 Changelog
 =========
 
+v0.6.0
+======
+
+Non ancora rilasciata.
+
+- Assembly non più strong-named.
+- Aggiorna dipendenza a FatturaElettronica v0.6.0.
+
+v0.5.0
+======
+
+Rilasciata il 30.3.2017.
+
+- Aggiorna dipendenza a FatturaElettronica v0.5.0.
+- CessionarioCommittente.IdFiscale: quando PartitaIVA è vuota, IdPaese viene svuotato.
+
+v0.4.3
+======
+
+Rilasciata il 23.3.2017.
+
+- Aggiorna dipendenza a FatturaElettronica v0.4.3.
+
+v0.4.2
+======
+
+Rilasciata il 17.3.2017.
+
+- Aggiorna dipendenza a FatturaElettronica v0.4.2.
+
+v0.4.1
+======
+
+Rilasciata il 14.3.2017.
+
+- Aggiorna dipendenza a FatturaElettronica v0.4.1.
+- Rimossa dipendenza a BusinessObjects.
+
+v0.2.2
+======
+
+Rilasciata il 10.2.2017
+
+- Upgrade to FatturaElettronica v0.3.6.
+- Supporto del .NET Framework 4.5 e superiori.
+- Abbandonato supporto per .NET Framework 4.
+
 v0.2.1
 ======
 
-Non rilasciata.
+Rilasciata il 18.1.2017
 
 - Upgrade to FatturaElettronica v0.3.3.
 

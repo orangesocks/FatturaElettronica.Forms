@@ -1,16 +1,18 @@
-﻿using BusinessObjects;
-using FatturaElettronica.Common;
+﻿using FatturaElettronica.Tabelle;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using FluentValidation.Results;
 
 namespace FatturaElettronica.Forms
 {
     public partial class FatturaElettronicaForm : Form
     {
-        FatturaElettronica _fattura;
+        Fattura _fattura;
+        ValidationResult _result;
+
         public FatturaElettronicaForm()
         {
             InitializeComponent();
@@ -25,86 +27,88 @@ namespace FatturaElettronica.Forms
             salvaApri.Enabled = false;
 
             // DatiTrasmissione
-            idPaeseTrasmittente.DataSource = Country.List.ToList();
-            idPaeseTrasmittente.DisplayMember = "Description";
-            idPaeseTrasmittente.ValueMember = "TwoLetterCode";
+            idPaeseTrasmittente.DisplayMember = "Descrizione";
+            idPaeseTrasmittente.ValueMember = "Codice";
+            idPaeseTrasmittente.DataSource = new IdPaese().List.ToList();
 
-            formatoTrasmissione.DataSource = FormatoTrasmissione.List.ToList();
             formatoTrasmissione.DisplayMember = "Descrizione";
-            formatoTrasmissione.ValueMember = "Sigla";
+            formatoTrasmissione.ValueMember = "Codice";
+            formatoTrasmissione.DataSource = new FormatoTrasmissione().List.ToList();
 
-            provinciaAlbo.DataSource = Provincia.List.ToList();
             provinciaAlbo.DisplayMember = "Descrizione";
-            provinciaAlbo.ValueMember = "Sigla";
+            provinciaAlbo.ValueMember = "Codice";
+            provinciaAlbo.DataSource = new Provincia().List.ToList();
 
-            regimeFiscale.DataSource = RegimeFiscale.List.ToList();
             regimeFiscale.DisplayMember = "Descrizione";
             regimeFiscale.ValueMember = "Codice";
+            regimeFiscale.DataSource = new RegimeFiscale().List.ToList();
              
             // CedentePrestatore
-            idPaeseDatiAnagrafici.DataSource = Country.List.ToList();
-            idPaeseDatiAnagrafici.DisplayMember = "Description";
-            idPaeseDatiAnagrafici.ValueMember = "TwoLetterCode";
-            provinciaSede.DataSource = Provincia.List.ToList();
+            idPaeseDatiAnagrafici.DisplayMember = "Descrizione";
+            idPaeseDatiAnagrafici.ValueMember = "Codice";
+            idPaeseDatiAnagrafici.DataSource = new IdPaese().List.ToList();
             provinciaSede.DisplayMember = "Descrizione";
-            provinciaSede.ValueMember = "Sigla";
-            nazioneSede.DataSource = Country.List.ToList();
-            nazioneSede.DisplayMember = "Description";
-            nazioneSede.ValueMember = "TwoLetterCode";
-            provinciaStabileOrganizzazione.DataSource = Provincia.List.ToList();
+            provinciaSede.ValueMember = "Codice";
+            provinciaSede.DataSource = new Provincia().List.ToList();
+            nazioneSede.DisplayMember = "Descrizione";
+            nazioneSede.ValueMember = "Codice";
+            nazioneSede.DataSource = new IdPaese().List.ToList();
             provinciaStabileOrganizzazione.DisplayMember = "Descrizione";
-            provinciaStabileOrganizzazione.ValueMember = "Sigla";
-            nazioneStabileOrganizzazione.DataSource = Country.List.ToList();
-            nazioneStabileOrganizzazione.DisplayMember = "Description";
-            nazioneStabileOrganizzazione.ValueMember = "TwoLetterCode";
-            ufficio.DataSource = Provincia.List.ToList();
+            provinciaStabileOrganizzazione.ValueMember = "Codice";
+            provinciaStabileOrganizzazione.DataSource = new Provincia().List.ToList();
+            nazioneStabileOrganizzazione.DisplayMember = "Descrizione";
+            nazioneStabileOrganizzazione.ValueMember = "Codice";
+            nazioneStabileOrganizzazione.DataSource = new IdPaese().List.ToList();
             ufficio.DisplayMember = "Descrizione";
-            ufficio.ValueMember = "Sigla";
-            socioUnico.DataSource = SocioUnico.List.ToList();
+            ufficio.ValueMember = "Codice";
+            ufficio.DataSource = new Provincia().List.ToList();
             socioUnico.DisplayMember = "Descrizione";
             socioUnico.ValueMember = "Codice";
-            statoLiquidazione.DataSource = StatoLiquidazione.List.ToList();
+            socioUnico.DataSource = new SocioUnico().List.ToList();
             statoLiquidazione.DisplayMember = "Descrizione";
             statoLiquidazione.ValueMember = "Codice";
+            statoLiquidazione.DataSource = new StatoLiquidazione().List.ToList();
 
             // RappresentanteFiscale
-            idPaeseRappresentanteFiscale.DataSource = Country.List.ToList();
-            idPaeseRappresentanteFiscale.DisplayMember = "Description";
-            idPaeseRappresentanteFiscale.ValueMember = "TwoLetterCode";
+            idPaeseRappresentanteFiscale.DisplayMember = "Descrizione";
+            idPaeseRappresentanteFiscale.ValueMember = "Codice";
+            idPaeseRappresentanteFiscale.DataSource = new IdPaese().List.ToList();
 
             // CessionarioCommittente
-            idPaeseCessionarioCommittente.DataSource = Country.List.ToList();
-            idPaeseCessionarioCommittente.DisplayMember = "Description";
-            idPaeseCessionarioCommittente.ValueMember = "TwoLetterCode";
-            nazioneCessionarioCommittente.DataSource = Country.List.ToList();
-            nazioneCessionarioCommittente.DisplayMember = "Description";
-            nazioneCessionarioCommittente.ValueMember = "TwoLetterCode";
-            provinciaCessionarioCommittente.DataSource = Provincia.List.ToList();
+            idPaeseCessionarioCommittente.DisplayMember = "Descrizione";
+            idPaeseCessionarioCommittente.ValueMember = "Codice";
+            var paesi = new IdPaese().List.ToList();
+            paesi.Insert(0, new IdPaese() { Nome = string.Empty, Codice = string.Empty });
+            idPaeseCessionarioCommittente.DataSource = paesi;
+            nazioneCessionarioCommittente.DisplayMember = "Descrizione";
+            nazioneCessionarioCommittente.ValueMember = "Codice";
+            nazioneCessionarioCommittente.DataSource = new IdPaese().List.ToList();
             provinciaCessionarioCommittente.DisplayMember = "Descrizione";
-            provinciaCessionarioCommittente.ValueMember = "Sigla";
-            provinciaStabileOrganizzazioneCessionarioCommittente.DataSource = Provincia.List.ToList();
+            provinciaCessionarioCommittente.ValueMember = "Codice";
+            provinciaCessionarioCommittente.DataSource = new Provincia().List.ToList();
             provinciaStabileOrganizzazioneCessionarioCommittente.DisplayMember = "Descrizione";
-            provinciaStabileOrganizzazioneCessionarioCommittente.ValueMember = "Sigla";
-            nazioneStabileOrganizzazioneCessionarioCommittente.DataSource = Country.List.ToList();
-            nazioneStabileOrganizzazioneCessionarioCommittente.DisplayMember = "Description";
-            nazioneStabileOrganizzazioneCessionarioCommittente.ValueMember = "TwoLetterCode";
-            idPaeseRappresentanteFiscaleCessionarioCommittente.DataSource = Country.List.ToList();
-            idPaeseRappresentanteFiscaleCessionarioCommittente.DisplayMember = "Description";
-            idPaeseRappresentanteFiscaleCessionarioCommittente.ValueMember = "TwoLetterCode";
+            provinciaStabileOrganizzazioneCessionarioCommittente.ValueMember = "Codice";
+            provinciaStabileOrganizzazioneCessionarioCommittente.DataSource = new Provincia().List.ToList();
+            nazioneStabileOrganizzazioneCessionarioCommittente.DisplayMember = "Descrizione";
+            nazioneStabileOrganizzazioneCessionarioCommittente.ValueMember = "Codice";
+            nazioneStabileOrganizzazioneCessionarioCommittente.DataSource = new IdPaese().List.ToList();
+            idPaeseRappresentanteFiscaleCessionarioCommittente.DisplayMember = "Descrizione";
+            idPaeseRappresentanteFiscaleCessionarioCommittente.ValueMember = "Codice";
+            idPaeseRappresentanteFiscaleCessionarioCommittente.DataSource = new IdPaese().List.ToList();
 
             // TerzoIntermediario
-            idPaeseTerzoIntermediario.DataSource = Country.List.ToList();
-            idPaeseTerzoIntermediario.DisplayMember = "Description";
-            idPaeseTerzoIntermediario.ValueMember = "TwoLetterCode";
+            idPaeseTerzoIntermediario.DisplayMember = "Descrizione";
+            idPaeseTerzoIntermediario.ValueMember = "Codice";
+            idPaeseTerzoIntermediario.DataSource = new IdPaese().List.ToList();
 
             // SoggettoEmittente
-            soggettoEmittente.DataSource = SoggettoEmittente.List.ToList();
-            soggettoEmittente.DisplayMember = "Description";
+            soggettoEmittente.DisplayMember = "Descrizione";
             soggettoEmittente.ValueMember = "Codice";
+            soggettoEmittente.DataSource = new SoggettoEmittente().List.ToList();
         }
         private void InitializeHeaderDataBindings() {
 
-            const string root = "FatturaElettronicaHeader.";
+            const string root = "Header.";
 
             // DatiTrasmissione
             var parent = root + "DatiTrasmissione.";
@@ -269,7 +273,7 @@ namespace FatturaElettronica.Forms
             control.DataBindings.Add(propertyName, bindingSource, dataMember, formattingEnabled, DataSourceUpdateMode.OnPropertyChanged);
         }
 
-        public FatturaElettronica FatturaElettronica {
+        public Fattura FatturaElettronica {
             get { return _fattura;}
             set {
                 _fattura = value;
@@ -278,23 +282,33 @@ namespace FatturaElettronica.Forms
         }
 
         private bool ConvalidaForm() {
-            // IsValid() would invoke Error() so we use the latter for convenience.
-            var s = FatturaElettronica.Error;
-            if (string.IsNullOrEmpty(s)){
-                validationOutput.Text="Nessun errore risconrtato.";
+            errori.Items.Clear();
+            _result = _fattura.Validate();
+            if (_result.IsValid){
+                lblErrori.Text = "Nessun errore riscontrato.";
                 salvaApri.Enabled = false;
                 return true;
             }
-            validationOutput.Text = s.Replace("FatturaElettronicaHeader.", "");
+            foreach (var err in _result.Errors)
+            {
+                var item = new ListViewItem(err.PropertyName.Replace("Header.", ""));
+                item.SubItems.Add(err.ErrorMessage);
+                item.SubItems.Add(err.ErrorCode);
+                errori.Items.Add(item);
+            }
+            errori.Columns[0].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+            errori.Columns[1].Width = 300;
+            errori.Columns[2].AutoResize(ColumnHeaderAutoResizeStyle.ColumnContent);
+            lblErrori.Text = "Riscontrati alcuni errori di convalida.";
             salvaApri.Enabled = true;
             return false;
         }
-        private void convalida_Click(object sender, EventArgs e) {
+        private void Convalida_Click(object sender, EventArgs e) {
             if (ConvalidaForm()) {
                 salvaApri.Focus();
             }
         }
-        private void ok_Click(object sender, EventArgs e)
+        private void Ok_Click(object sender, EventArgs e)
         {
             if (!ConvalidaForm()) {
                 MessageBox.Show(this, "Ci sono errori di convalida.", "Convalida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -305,16 +319,18 @@ namespace FatturaElettronica.Forms
             }
         }
 
-        private void salvaApri_Click(object sender, EventArgs e)
+        private void SalvaApri_Click(object sender, EventArgs e)
         {
             const string filename = "convalida.txt";
             using (var f = new StreamWriter(filename, false)) {
-                f.Write(validationOutput.Text);
+                f.WriteLine("Proprietà, Codice, Messaggio");
+                foreach (var err in _result.Errors)
+                    f.WriteLine($"{err.PropertyName.Replace("Header.", "")}, {err.ErrorCode}, {err.ErrorMessage}");
             }
             Process.Start(filename);
         }
 
-        private void formatoTrasmissione_SelectedIndexChanged(object sender, EventArgs e)
+        private void FormatoTrasmissione_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((string)formatoTrasmissione.SelectedValue == Impostazioni.FormatoTrasmissione.Privati)
             {
@@ -326,6 +342,14 @@ namespace FatturaElettronica.Forms
                 codiceDestinatario.MaxLength = 6;
                 codiceDestinatario.Text = string.Empty;
                 PECDestinatario.Text = string.Empty;
+            }
+        }
+
+        private void idCodiceCessionarioCommittente_TextChanged(object sender, EventArgs e)
+        {
+            if (idCodiceCessionarioCommittente.Text == string.Empty)
+            {
+                idPaeseCessionarioCommittente.SelectedValue = string.Empty;
             }
         }
     }

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FatturaElettronica.Forms</RootNamespace>
     <AssemblyName>FatturaElettronica.Forms</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,25 +30,24 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
-    <AssemblyOriginatorKeyFile>FatturaElettronica.snk</AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="BusinessObjects, Version=0.1.5.0, Culture=neutral, PublicKeyToken=ee01fa0baf555a0d, processorArchitecture=MSIL">
-      <HintPath>packages\BusinessObjects.0.1.5\lib\portable40-net40+sl5+win8+wp8\BusinessObjects.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="FatturaElettronica, Version=0.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\FatturaElettronica.0.6.0\lib\portable45-net45+win8+wp8\FatturaElettronica.dll</HintPath>
     </Reference>
-    <Reference Include="FatturaElettronica, Version=0.3.3.0, Culture=neutral, PublicKeyToken=f61b7587c2e5a3b6, processorArchitecture=MSIL">
-      <HintPath>packages\FatturaElettronica.0.3.3\lib\portable40-net40+sl5+win8+wp8\FatturaElettronica.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="FluentValidation, Version=6.2.1.0, Culture=neutral, PublicKeyToken=a82054b837897c66, processorArchitecture=MSIL">
+      <HintPath>packages\FluentValidation-Signed.6.2.1.0\lib\Net45\FluentValidation.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\Newtonsoft.Json.6.0.8\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -74,8 +74,10 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="FatturaElettronica.snk" />
-    <None Include="packages.config" />
+    <None Include="app.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\DataSources\FatturaElettronica.FatturaElettronicaHeader.FatturaElettronicaHeader.datasource" />
     <None Include="Properties\DataSources\FatturaElettronicaPA.PCL.FatturaElettronicaHeader.FatturaElettronicaHeader.datasource" />
   </ItemGroup>
