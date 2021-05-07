@@ -1,6 +1,103 @@
 Changelog
 =========
 
+v3.1.0
+======
+
+Released on January 8, 2021.
+
+- Bump FatturaElettronica to v3.1.0
+
+v3.0.2
+======
+
+Released on July 7, 2020.
+
+- Bump FatturaElettronica to v3.0.2
+
+v3.0
+====
+
+Released on June 15, 2020.
+
+- Bump FatturaElettronica to v3.0
+
+v2.0
+====
+
+Released on March 13, 2019.
+
+- Bump FatturaElettronica to v2.0
+
+1.3.1
+=====
+
+Released on February 7, 2019
+
+- Fix: Codice identificativo fiscale deve essere uppercase. Closes #24.
+
+v1.3
+====
+
+Released on February 2, 2019.
+
+- Bump FatturaElettronica to v1.1.5
+
+v1.2
+====
+
+Released on January 23, 2019.
+
+- Bump FatturaElettronica to v1.1.3
+
+v1.1
+====
+
+Released on January 11, 2019.
+
+- Bump FatturaElettronica to v1.1
+- Drop references in favor of actual nuget packages.
+- nuspec fixes
+
+v1.0.1
+=======
+
+Released on December 30, 2018.
+
+- Drop System.Net.Http dependency.
+- Bump FatturaElettronica to v1.0.3
+
+v1.0
+====
+
+Released on November 9, 2018.
+
+- BREAKING: Target Framework passa da 4.5 a 4.6.1.
+
+- Bump FatturaElettronica to v1.0.1
+- Bump FatturaElettronica.Core to 1.0
+- Bump System.Xml.ReaderWriter to 4.3.1
+- Bump NETStandard.Library to 2.0.3
+- Bump System.Net.Http to 4.3.4
+- Bump System.ComponentModel.Annotations to 4.5.0
+- Bump Microsoft.NETCore.Platforms to 2.1.1
+- Bump Newtonsoft.Json to 11.0.2
+
+
+v0.9
+====
+
+Released on October 26, 2018
+
+- Aggiorna dipendenza a FatturaElettronica v0.9
+
+v0.8.4
+======
+
+Rilasciata il 6.7.2018
+
+- Aggiorna dipendenza a FatturaElettronica v0.8.4
+
 v0.8.1
 ======
 

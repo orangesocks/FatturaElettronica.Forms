@@ -486,6 +486,7 @@
             // 
             // idCodiceTrasmittente
             // 
+            this.idCodiceTrasmittente.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.idCodiceTrasmittente.Location = new System.Drawing.Point(153, 46);
             this.idCodiceTrasmittente.MaxLength = 30;
             this.idCodiceTrasmittente.Name = "idCodiceTrasmittente";
@@ -2327,7 +2328,7 @@
             // 
             // bindingSource
             // 
-            this.bindingSource.DataSource = typeof(FatturaElettronica.FatturaElettronicaHeader.Header);
+            this.bindingSource.DataSource = typeof(FatturaElettronica.Ordinaria.FatturaElettronicaHeader.FatturaElettronicaHeader);
             // 
             // tabFatturaElettronica
             // 

@@ -1,16 +1,18 @@
-﻿using FatturaElettronica.Tabelle;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using FluentValidation.Results;
+using FatturaElettronica.Tabelle;
+using FatturaElettronica.Ordinaria;
+using FatturaElettronica.Extensions;
 
 namespace FatturaElettronica.Forms
 {
     public partial class FatturaElettronicaForm : Form
     {
-        Fattura _fattura;
+        FatturaOrdinaria _fattura;
         ValidationResult _result;
 
         public FatturaElettronicaForm()
@@ -78,7 +80,7 @@ namespace FatturaElettronica.Forms
             idPaeseCessionarioCommittente.DisplayMember = "Descrizione";
             idPaeseCessionarioCommittente.ValueMember = "Codice";
             var paesi = new IdPaese().List.ToList();
-            paesi.Insert(0, new IdPaese() { Nome = string.Empty, Codice = string.Empty });
+            paesi.Insert(0, new IdPaese() { Nome = string.Empty});
             idPaeseCessionarioCommittente.DataSource = paesi;
             nazioneCessionarioCommittente.DisplayMember = "Descrizione";
             nazioneCessionarioCommittente.ValueMember = "Codice";
@@ -108,7 +110,7 @@ namespace FatturaElettronica.Forms
         }
         private void InitializeHeaderDataBindings() {
 
-            const string root = "Header.";
+            const string root = "FatturaElettronicaHeader.";
 
             // DatiTrasmissione
             var parent = root + "DatiTrasmissione.";
@@ -273,7 +275,7 @@ namespace FatturaElettronica.Forms
             control.DataBindings.Add(propertyName, bindingSource, dataMember, formattingEnabled, DataSourceUpdateMode.OnPropertyChanged);
         }
 
-        public Fattura FatturaElettronica {
+        public FatturaOrdinaria FatturaElettronica {
             get { return _fattura;}
             set {
                 _fattura = value;
@@ -291,7 +293,7 @@ namespace FatturaElettronica.Forms
             }
             foreach (var err in _result.Errors)
             {
-                var item = new ListViewItem(err.PropertyName.Replace("Header.", ""));
+                var item = new ListViewItem(err.PropertyName.Replace("FatturaElettronicaHeader.", ""));
                 item.SubItems.Add(err.ErrorMessage);
                 item.SubItems.Add(err.ErrorCode);
                 errori.Items.Add(item);
@@ -325,7 +327,7 @@ namespace FatturaElettronica.Forms
             using (var f = new StreamWriter(filename, false)) {
                 f.WriteLine("Proprietà, Codice, Messaggio");
                 foreach (var err in _result.Errors)
-                    f.WriteLine($"{err.PropertyName.Replace("Header.", "")}, {err.ErrorCode}, {err.ErrorMessage}");
+                    f.WriteLine($"{err.PropertyName.Replace("FatturaElettronicaHeader.", "")}, {err.ErrorCode}, {err.ErrorMessage}");
             }
             Process.Start(filename);
         }
@@ -334,7 +336,7 @@ namespace FatturaElettronica.Forms
         {
             if (_fattura == null) return;
 
-            if ((string)formatoTrasmissione.SelectedValue == Impostazioni.FormatoTrasmissione.Privati)
+            if ((string)formatoTrasmissione.SelectedValue == Defaults.FormatoTrasmissione.Privati)
             {
                 codiceDestinatario.MaxLength = 7;
                 if (string.IsNullOrEmpty(codiceDestinatario.Text))
